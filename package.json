@@ -1,6 +1,6 @@
 {
   "name": "com.bubbleheadgamedev.bubbledebug",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "Bubble.Debug",
   "description": "Light-weight, simple debug extension tool to help trace errors in Unity.",
   "unity": "6000.2",
@@ -9,9 +9,10 @@
   "changelogUrl": "https://bubblehead-game-dev.com/package/bubble-debug/changelog.html",
   "licensesUrl": "https://bubblehead-game-dev.com/package/bubble-debug/licensing.html",
   "keywords": [
-    "keyword1",
-    "keyword2",
-    "keyword3"
+    "debug",
+    "console",
+    "logging",
+    "utility"
   ],
   "author": {
     "name": "Bubblehead Game Dev",

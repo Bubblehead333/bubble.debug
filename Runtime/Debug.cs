@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using UnityEngine;
 
 namespace Bubble.Debug
 {
@@ -18,7 +19,7 @@ namespace Bubble.Debug
         public static void Log(string message)
         {
             if (showLogs)
-                UnityEngine.Debug.Log("BubbleLog: " + message);
+                UnityEngine.Debug.Log(Colour("Bubble.Debug.Log: ", Color.white) + message);
         }
 
         /// <summary>
@@ -26,16 +27,16 @@ namespace Bubble.Debug
         /// </summary>
         /// <param name="message"></param>
         /// 
-        public static void Trace(string message = null)
+        public static void Trace(string message = null, bool highlight = false)
         {
             if (showLogs)
             {
                 var st = new StackTrace();
                 var sf = st.GetFrame(1);
 
-                UnityEngine.Debug.Log(
-                    "BDTrace: " + sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name + " | " + message
-                );
+                string logMessage = highlight ? Colour("Bubble.Debug.Trace: ", Color.green) : "Bubble.Debug.Trace: ";
+                logMessage += sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name + " | " + message;
+                UnityEngine.Debug.Log(logMessage);
             }
         }
 
@@ -50,7 +51,8 @@ namespace Bubble.Debug
             var sf = st.GetFrame(1);
 
             UnityEngine.Debug.LogError(
-                "BDError: " + sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name  + " | " + message
+                Colour("Bubble.Debug.Error: ", Color.red) +
+                sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name  + " | " + message
             );
         }
 
@@ -65,9 +67,30 @@ namespace Bubble.Debug
             var sf = st.GetFrame(1);
 
             UnityEngine.Debug.LogWarning(
-                "BDWarning: " + sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name  + " | " + message
+                Colour("Bubble.Debug.Warning: ", Color.orange) +
+                sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name  + " | " + message
             );
         }
 
+        #region Formatting
+
+        public static string ToHex(Color colour)
+        {
+            return string.Format(
+                "#{0:X2}{1:X2}{2:X2}", 
+                (byte)(colour.r * 255), 
+                (byte)(colour.g * 255), 
+                (byte)(colour.b * 255)
+            );
+        }
+
+        public static string Colour(string text, Color colour)
+        {
+            string output;
+            output = string.Format("<color={0}>{1}</color>", ToHex(colour), text);
+            return output;
+        } 
+
+        #endregion
     }
 }

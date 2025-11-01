@@ -1,5 +1,5 @@
 {
-    "name": "bubbleheadgamedev.bubbledebug.runtime",
+    "name": "BubbleheadGameDev.Bubble.Debug.Runtime",
     "rootNamespace": "Bubble.Debug",
     "references": [],
     "includePlatforms": [],
