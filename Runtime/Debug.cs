@@ -63,7 +63,7 @@ namespace Bubble.Debug
         static string GetMethodName()
         {
             var st = new StackTrace(true);
-            var sf = st.GetFrame(1);
+            var sf = st.GetFrame(2);
             return sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name + GetLineNumber(sf);
         }
 
