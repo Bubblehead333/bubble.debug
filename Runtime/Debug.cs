@@ -31,12 +31,8 @@ namespace Bubble.Debug
         {
             if (showLogs)
             {
-                var st = new StackTrace();
-                var sf = st.GetFrame(1);
-
                 string logMessage = highlight ? Colour("Bubble.Debug.Trace: ", Color.green) : "Bubble.Debug.Trace: ";
-                logMessage += sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name + " | " + message;
-                UnityEngine.Debug.Log(logMessage);
+                UnityEngine.Debug.Log(logMessage + GetMethodName() + " | " + message);
             }
         }
 
@@ -47,12 +43,8 @@ namespace Bubble.Debug
         /// 
         public static void Error(string message)
         {
-            var st = new StackTrace();
-            var sf = st.GetFrame(1);
-
             UnityEngine.Debug.LogError(
-                Colour("Bubble.Debug.Error: ", Color.red) +
-                sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name  + " | " + message
+                Colour("Bubble.Debug.Error: ", Color.red) + GetMethodName() + " | " + message
             );
         }
 
@@ -63,13 +55,22 @@ namespace Bubble.Debug
         /// 
         public static void Warning(string message)
         {
-            var st = new StackTrace();
-            var sf = st.GetFrame(1);
-
             UnityEngine.Debug.LogWarning(
-                Colour("Bubble.Debug.Warning: ", Color.orange) +
-                sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name  + " | " + message
+                Colour("Bubble.Debug.Warning: ", Color.orange) + GetMethodName() + " | " + message
             );
+        }
+
+        static string GetMethodName()
+        {
+            var st = new StackTrace(true);
+            var sf = st.GetFrame(1);
+            return sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name + GetLineNumber(sf);
+        }
+
+        static string GetLineNumber(StackFrame stackFrame)
+        {
+            int lineNumber = stackFrame.GetFileLineNumber();
+            return lineNumber > 0 ? $"({lineNumber})" : "";
         }
 
         #region Formatting
