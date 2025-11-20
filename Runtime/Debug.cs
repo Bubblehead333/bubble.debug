@@ -16,10 +16,10 @@ namespace Bubble.Debug
         /// </summary>
         /// <param name="message"></param>
         /// 
-        public static void Log(string message)
+        public static void Log(string message, Object context = null)
         {
             if (showLogs)
-                UnityEngine.Debug.Log(Colour("Bubble.Debug.Log: ", Color.white) + message);
+                UnityEngine.Debug.Log(Colour("Bubble.Debug.Log: ", Color.white) + message, context);
         }
 
         /// <summary>
@@ -27,12 +27,12 @@ namespace Bubble.Debug
         /// </summary>
         /// <param name="message"></param>
         /// 
-        public static void Trace(string message = null, bool highlight = false)
+        public static void Trace(string message = null, bool highlight = false, Object context = null)
         {
             if (showLogs)
             {
                 string logMessage = highlight ? Colour("Bubble.Debug.Trace: ", Color.green) : "Bubble.Debug.Trace: ";
-                UnityEngine.Debug.Log(logMessage + GetMethodName() + " | " + message);
+                UnityEngine.Debug.Log(logMessage + GetMethodName() + " | " + message, context);
             }
         }
 
@@ -41,10 +41,10 @@ namespace Bubble.Debug
         /// </summary>
         /// <param name="message"></param>
         /// 
-        public static void Error(string message)
+        public static void Error(string message, Object context = null)
         {
             UnityEngine.Debug.LogError(
-                Colour("Bubble.Debug.Error: ", Color.red) + GetMethodName() + " | " + message
+                Colour("Bubble.Debug.Error: ", Color.red) + GetMethodName() + " | " + message, context
             );
         }
 
@@ -53,10 +53,10 @@ namespace Bubble.Debug
         /// </summary>
         /// <param name="message"></param>
         /// 
-        public static void Warning(string message)
+        public static void Warning(string message, Object context = null)
         {
             UnityEngine.Debug.LogWarning(
-                Colour("Bubble.Debug.Warning: ", Color.orange) + GetMethodName() + " | " + message
+                Colour("Bubble.Debug.Warning: ", Color.orange) + GetMethodName() + " | " + message, context
             );
         }
 
